@@ -29,23 +29,23 @@ import { notesService } from '../services/NotesService'
 import { useRoute } from 'vue-router'
 export default {
   name: 'NewNoteComponent',
-  props: {
-    note: {
-      type: Object,
-      required: true
-    }
-  },
+  // props: {
+  //   note: {
+  //     type: Object,
+  //     required: true
+  //   }
+  // },
   setup() {
     const route = useRoute()
     const state = reactive({
-      newNote: {}
+      newNote: { bugId: route.params.id }
     })
     return {
       route,
       state,
       async createNote() {
         try {
-          await notesService.createNote(route.params.id, state.newNote)
+          await notesService.createNote(state.newNote)
           state.newNote = {}
         } catch (error) {
           Notification.toast('Error: ' + error, 'error')

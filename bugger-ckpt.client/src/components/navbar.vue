@@ -3,7 +3,7 @@
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
       <div class="d-flex flex-column align-items-center">
         <h1 title="Go Back to Bug Log">
-          BUG LOG
+          the <i class="fas fa-bug text-white"></i> log
         </h1>
       </div>
     </router-link>

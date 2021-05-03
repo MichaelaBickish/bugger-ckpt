@@ -37,12 +37,12 @@ import Notification from '../utils/Notification'
 import { bugsService } from '../services/BugsService'
 export default {
   name: 'NewBugComponent',
-  props: {
-    bug: {
-      type: Object,
-      required: true
-    }
-  },
+  // props: {
+  //   bug: {
+  //     type: Object,
+  //     required: true
+  //   }
+  // },
   setup() {
     const state = reactive({
       newBug: {}

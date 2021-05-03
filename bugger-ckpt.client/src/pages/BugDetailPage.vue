@@ -18,9 +18,9 @@
 
     <div class="row mx-1 my-1 justify-content-between">
       <div class="col-md-6 d-flex flex-row">
-        <h4 class="font-weight-lighter">
-          Reported by: <b>{{ state.activeBug.creator.name }}</b>
-        </h4>
+        <p class="font-weight-lighter">
+          Reported by: <img :src="state.activeBug.creator.picture" height="30" alt="" class="user-photo rounded-circle"><b> {{ state.activeBug.creator.name }}</b>
+        </p>
       </div>
       <div class="col-md-3">
         <h4 class="font-weight-lighter">
@@ -96,8 +96,8 @@ import { computed, reactive, onMounted } from 'vue'
 import { AppState } from '../AppState'
 import Notification from '../utils/Notification'
 import { bugsService } from '../services/BugsService'
-import { useRoute } from 'vue-router'
 import { notesService } from '../services/NotesService'
+import { useRoute } from 'vue-router'
 export default {
   name: 'BugDetailPage',
   setup() {

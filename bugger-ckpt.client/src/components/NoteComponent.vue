@@ -1,20 +1,23 @@
 <template class="note-component">
-  <div v-if="note">
-    <tr>
-      <th scope="row">
+  <!-- <div v-if="note"> -->
+  <tr>
+    <th scope="row">
+      <p class="font-weight-lighter">
+        <img :src="note.creator.picture" height="20" alt="" class="user-photo rounded-circle">
         {{ note.creator.name }}
-      </th>
-      <td>{{ note.body }}</td>
-      <td><i class="fas fa-trash    "></i></td>
-    </tr>
-  </div>
-  <div v-else>
-    <tr>
+      </p>
+    </th>
+    <td>{{ note.body }}</td>
+    <td><i class="fas fa-trash"></i></td>
+  </tr>
+  <!-- </div>
+  <div v-else> -->
+  <!-- <tr>
       <th scope="row">
         No Notes to Display
       </th>
     </tr>
-  </div>
+  </div> -->
 </template>
 
 <script>

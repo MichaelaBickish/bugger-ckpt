@@ -7,8 +7,16 @@
         </h2>
       </div>
 
-      <div class="col-md-6 d-flex justify-content-end">
-        <span>Filter Checkbox</span>
+      <div class="col-md-6 d-flex justify-content-end align-items-end">
+        <span>Hide Closed Bugs
+          <input type="checkbox"
+                 class="filter-checkbox cursor-pointer"
+                 id="filter-box"
+                 name="filter-box"
+                 title="Hide Closed Bugs"
+                 @click="hideClosedBugs"
+          >
+        </span>
       </div>
     </div>
 
@@ -88,7 +96,14 @@ export default {
       }
     })
     return {
-      state
+      state,
+      async hideClosedBugs(bugs) {
+        try {
+          await bugsService.hideClosedBugs(bugs)
+        } catch (error) {
+          Notification.toast('Error: ' + error, ' error')
+        }
+      }
     }
   }
 }
@@ -101,6 +116,9 @@ export default {
   > img{
     height: 200px;
     width: 200px;
+  }
+  .cursor-pointer{
+    cursor: pointer;
   }
 }
 </style>
