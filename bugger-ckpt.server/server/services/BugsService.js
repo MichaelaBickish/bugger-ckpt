@@ -1,14 +1,16 @@
 import { dbContext } from '../db/DbContext'
-import { BadRequest } from '../utils/Errors'
+import { BadRequest, Forbidden } from '../utils/Errors'
 
 class BugsService {
   async find(query = {}) {
     const bugs = await dbContext.Bugs.find(query)
+      .populate('creator', 'name picture')
     return bugs
   }
 
   async findById(id) {
     const bug = await dbContext.Bugs.findById(id)
+      .populate('creator', 'name picture')
     if (!bug) {
       throw new BadRequest('Invalid Id')
     }
@@ -31,6 +33,14 @@ class BugsService {
       throw new BadRequest('Invalid Id')
     }
   }
-}
 
+  async edit(body) {
+    const bug = await this.findById({ _id: body.id })
+    if (bug.closed === true) {
+      throw new Forbidden('You Cannot Edit a Closed Bug!')
+    }
+    const data = await dbContext.Bugs.findOneAndUpdate({ _id: body.id, creatorId: body.creatorId }, bug, { new: true })
+    return data
+  }
+}
 export const bugsService = new BugsService()

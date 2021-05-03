@@ -2,17 +2,24 @@ import { dbContext } from '../db/DbContext'
 import { BadRequest } from '../utils/Errors'
 
 class NotesService {
-  async find(query = {}) {
-    const notes = await dbContext.Notes.find(query)
+  async create(body) {
+    return await dbContext.Notes.create(body)
+  }
+
+  async getNotesByBugId(id) {
+    const notes = await dbContext.Notes.find({ bug: id })
+    if (!notes) {
+      throw new BadRequest('Invalid Id')
+    }
     return notes
   }
 
-  async findById(id) {
-    const note = await dbContext.Notes.findById(id)
-    if (!note) {
+  async delete(id, userId) {
+    const data = await dbContext.Notes.findByIdAndDelete({ _id: id, creatorId: userId })
+    if (!data) {
       throw new BadRequest('Invalid Id')
     }
-    return note
+    return 'Note Successfully Deleted!'
   }
 }
 
