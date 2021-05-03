@@ -2,25 +2,16 @@
   <div class="new-note-component">
     <form @submit.prevent="createNote">
       <div class="form-group">
-        <label for="title">Title of New Note</label>
-        <input type="text"
-               class="form-control"
-               id="title"
-               placeholder="Title..."
-               required
-               minlength="4"
-               v-model="state.newNote.title"
-        >
       </div>
       <label for="description">New Note Description</label>
       <input type="text"
              class="form-control"
              id="description"
              rows="3"
-             placeholder="Description..."
+             placeholder="Write a Note..."
              required
              minlength="5"
-             v-model="state.newNote.description"
+             v-model="state.newNote.body"
       >
       <div class="d-flex justify-content-end">
         <button type="submit" class="btn btn-outline-success mt-1" title="Submit New Note">

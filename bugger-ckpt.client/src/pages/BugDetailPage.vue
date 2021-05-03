@@ -97,6 +97,7 @@ import { AppState } from '../AppState'
 import Notification from '../utils/Notification'
 import { bugsService } from '../services/BugsService'
 import { useRoute } from 'vue-router'
+import { notesService } from '../services/NotesService'
 export default {
   name: 'BugDetailPage',
   setup() {
@@ -111,6 +112,7 @@ export default {
       try {
         // debugger
         await bugsService.getActiveBug(route.params.id)
+        await notesService.getNotesByBugId(route.params.id)
       } catch (error) {
         Notification.toast('error:' + error, 'warning')
       }
