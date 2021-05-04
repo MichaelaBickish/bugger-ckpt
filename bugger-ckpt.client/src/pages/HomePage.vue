@@ -22,7 +22,7 @@
 
     <div class="row mx-2 mb-1">
       <div class="col-md-12 d-flex flex-column align-items-start">
-        <button class="btn btn-outline-primary"
+        <button class="btn btn-outline-primary text-dark"
                 title="Report a New Bug"
                 type="button"
                 data-toggle="collapse"
@@ -30,7 +30,7 @@
                 v-if="state.user.isAuthenticated"
                 aria-expanded="false"
         >
-          Report a New Bug!
+          <b>Report a New Bug!</b>
         </button>
         <div class="collapse w-100" id="new-bug-report">
           <div class="card card-body bg-transparent mt-2 text-left">

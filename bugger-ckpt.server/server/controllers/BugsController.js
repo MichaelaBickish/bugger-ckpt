@@ -71,6 +71,8 @@ export class BugsController extends BaseController {
       // verify creator is the person logged in.
       req.body.creatorId = req.userInfo.id
       req.body.id = req.params.id
+      // keep edit from closing Bug- delete bug.close property off object.
+      delete req.body.closed
       const data = await bugsService.edit(req.body)
       return res.send(data)
     } catch (error) {

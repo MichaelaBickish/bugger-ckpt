@@ -2,7 +2,7 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
       <div class="d-flex flex-column align-items-center">
-        <h1 title="Go Back to Bug Log">
+        <h1 title="Go Back to Bug Log" class="text-primary">
           the <i class="fas fa-bug text-white"></i> log
         </h1>
       </div>

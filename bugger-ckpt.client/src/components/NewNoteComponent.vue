@@ -14,7 +14,7 @@
              v-model="state.newNote.body"
       >
       <div class="d-flex justify-content-end">
-        <button type="submit" class="btn btn-outline-success mt-1" title="Submit New Note">
+        <button type="submit" class="btn btn-outline-success mt-1 text-dark" title="Submit New Note">
           Submit
         </button>
       </div>
@@ -29,22 +29,17 @@ import { notesService } from '../services/NotesService'
 import { useRoute } from 'vue-router'
 export default {
   name: 'NewNoteComponent',
-  // props: {
-  //   note: {
-  //     type: Object,
-  //     required: true
-  //   }
-  // },
   setup() {
     const route = useRoute()
     const state = reactive({
-      newNote: { bugId: route.params.id }
+      newNote: {}
     })
     return {
       route,
       state,
       async createNote() {
         try {
+          state.newNote.bug = route.params.id
           await notesService.createNote(state.newNote)
           state.newNote = {}
         } catch (error) {

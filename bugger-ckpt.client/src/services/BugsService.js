@@ -2,6 +2,7 @@ import { AppState } from '../AppState'
 import { api } from './AxiosService'
 import { logger } from '../utils/Logger'
 import router from '../router'
+import Notification from '../utils/Notification'
 
 class BugsService {
   async getAllBugs() {
@@ -31,6 +32,16 @@ class BugsService {
       AppState.bugs = AppState.bugs.filter(bug => bug.closed !== true)
     } else {
       this.getAllBugs()
+    }
+  }
+
+  async closeBug(activeBug, bugId) {
+    await api.delete('api/bugs/' + bugId)
+    if (activeBug.closed === false) {
+      AppState.activeBug.closed = true
+      Notification.toast('Successfully Closed!', 'success', 'top-end')
+    } else {
+      Notification.toast('Error')
     }
   }
 }

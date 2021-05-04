@@ -39,7 +39,7 @@ class BugsService {
     if (bug.closed === true) {
       throw new Forbidden('You Cannot Edit a Closed Bug!')
     }
-    const data = await dbContext.Bugs.findOneAndUpdate({ _id: body.id, creatorId: body.creatorId }, bug, { new: true })
+    const data = await dbContext.Bugs.findOneAndUpdate({ _id: body.id, creatorId: body.creatorId }, body, { new: true })
     return data
   }
 }

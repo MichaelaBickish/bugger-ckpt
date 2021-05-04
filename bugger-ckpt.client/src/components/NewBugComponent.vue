@@ -23,7 +23,7 @@
              v-model="state.newBug.description"
       >
       <div class="d-flex justify-content-end">
-        <button type="submit" class="btn btn-outline-success mt-1" title="Submit New Report">
+        <button type="submit" class="btn btn-outline-success mt-1 text-dark" title="Submit New Report">
           Submit
         </button>
       </div>
@@ -37,12 +37,6 @@ import Notification from '../utils/Notification'
 import { bugsService } from '../services/BugsService'
 export default {
   name: 'NewBugComponent',
-  // props: {
-  //   bug: {
-  //     type: Object,
-  //     required: true
-  //   }
-  // },
   setup() {
     const state = reactive({
       newBug: {}

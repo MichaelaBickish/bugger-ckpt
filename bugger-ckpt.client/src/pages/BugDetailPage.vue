@@ -7,10 +7,12 @@
         </div>
       </div>
       <div class="col-md-3 d-flex">
-        <div v-if="state.activeBug.closed"></div>
+        <div v-if="state.activeBug.closed">
+          {{ state.activeBug.closedDate }}
+        </div>
         <div v-else>
-          <button class="btn btn-outline-danger">
-            Close This Bug
+          <button class="btn btn-outline-danger text-dark" title="Close This Bug" v-if="state.user.isAuthenticated && state.account.id === state.activeBug.creatorId" @click="closeBug">
+            <b>Close This Bug</b>
           </button>
         </div>
       </div>
@@ -47,13 +49,13 @@
       <div class="col-md-12">
         <h5>Notes</h5>
 
-        <button class="btn btn-outline-primary"
+        <button class="btn btn-outline-primary text-dark"
                 title="Add A Note"
                 data-toggle="collapse"
                 data-target="#new-note"
                 v-if="state.user.isAuthenticated"
         >
-          Add A Note
+          <b>Add A Note</b>
         </button>
         <div class="collapse w-100" id="new-note">
           <div class="card card-body bg-transparent mt-2 text-left">
@@ -77,7 +79,6 @@
                 Message
               </th>
               <th scope="col">
-                Delete
               </th>
             </tr>
           </thead>
@@ -110,7 +111,6 @@ export default {
     })
     onMounted(async() => {
       try {
-        // debugger
         await bugsService.getActiveBug(route.params.id)
         await notesService.getNotesByBugId(route.params.id)
       } catch (error) {
@@ -119,7 +119,16 @@ export default {
     })
     return {
       state,
-      route
+      route,
+      async closeBug() {
+        try {
+          if (await Notification.confirmAction('Are you sure?', 'This bug will be permanently closed!', 'warning', 'Yes, close bug!')) {
+            await bugsService.closeBug(state.activeBug, state.activeBug.id)
+          }
+        } catch (error) {
+          Notification.toast('Error: ' + error, 'error')
+        }
+      }
     }
   },
   components: {}

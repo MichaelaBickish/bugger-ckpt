@@ -1,5 +1,4 @@
 <template class="note-component">
-  <!-- <div v-if="note"> -->
   <tr>
     <th scope="row">
       <p class="font-weight-lighter">
@@ -8,22 +7,22 @@
       </p>
     </th>
     <td>{{ note.body }}</td>
-    <td><i class="fas fa-trash"></i></td>
+    <td><i class="fas fa-trash cursor-pointer" @click="deleteNote" title="Delete this Note" v-if="state.user.isAuthenticated && state.account.id === note.creatorId"></i></td>
   </tr>
-  <!-- </div>
-  <div v-else> -->
-  <!-- <tr>
-      <th scope="row">
-        No Notes to Display
-      </th>
-    </tr>
-  </div> -->
+
+  <!-- <tr v-else>
+    <th scope="row">
+      No Notes to Display
+    </th>
+  </tr> -->
 </template>
 
 <script>
 import { reactive, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { AppState } from '../AppState'
+import { notesService } from '../services/NotesService'
+import Notification from '../utils/Notification'
 export default {
   name: 'NoteComponent',
   props: {
@@ -40,7 +39,16 @@ export default {
     })
     return {
       state,
-      route
+      route,
+      async deleteNote() {
+        try {
+          if (await Notification.confirmAction()) {
+            await notesService.deleteNote(props.note.id, props.note.bug)
+          }
+        } catch (error) {
+          Notification.toast('Error: ' + error, ' error')
+        }
+      }
     }
   },
   components: {}
@@ -48,5 +56,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.cursor-pointer{
+  cursor: pointer;
+}
 </style>
